@@ -25,8 +25,14 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-
+    /**     Control Panel for Raspberry Pi 3 autopilot
+     *
+     * This app is based on the "Swipe View with Tabs" default app generation in Android Studio.
+     * It uses ViewPager and FragmentPagerAdapter. The fragments are defined in separate files.
+     * I have a TCPClient class in a separate file set up on a background thread with ActiveSync
+     * in this file. The TCPClient polls for new data regularly with Handler.postDelayed in
+     * runnable mStatusChecker.
+     *
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -113,79 +119,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public static class PilotFragment extends Fragment {
-
-        public PilotFragment() {
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View mPilotView = inflater.inflate(R.layout.fragment_pilot, container, false);
-            pilotLabel = (TextView) mPilotView.findViewById(R.id.pilot_label);
-            pilotLabel.setText("Pilot 2");
-            return mPilotView;
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
-
-        public void setTextLabel(String mText) {
-            if(pilotLabel != null)pilotLabel.setText(mText);
-        }
-    }
-
-
-    public static class CompassFragment extends Fragment {
-
-        public CompassFragment() {
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_compass, container, false);
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
-    }
-
-
-    public static class SettingsFragment extends Fragment {
-
-        public SettingsFragment() {
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_settings, container, false);
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
-    }
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -252,17 +185,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-
-            //in the arrayList we add the messaged received from server
-            //arrayList.add(values[0]);
-            // notify the adapter that the data set has changed. This means that new message received
-            // from server was added to the list
-            //mAdapter.notifyDataSetChanged();
-
-            int pnr = mViewPager.getCurrentItem();
-            if(pnr == 0) {
                 mPilotFragment.setTextLabel(values[0]);
-            }
         }
     }
 

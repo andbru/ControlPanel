@@ -9,10 +9,10 @@
     tools:context="com.andbru.controlpanel.MainActivity$PlaceholderFragment">
 
     <TextView
-        android:id="@+id/pilot_label"
+        android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pilot"
+        android:text="Settings"
         android:textSize="30sp" />
 
 </RelativeLayout>
