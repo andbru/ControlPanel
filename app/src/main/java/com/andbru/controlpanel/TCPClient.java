@@ -5,6 +5,9 @@ package com.andbru.controlpanel;
  */
 
 import android.util.Log;
+
+import com.andbru.controlpanel.SettingsFragment.PassCmd;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -13,10 +16,15 @@ import java.nio.charset.StandardCharsets;
 public class TCPClient {
 
     private String serverMessage;
-    public static final String SERVERIP = "192.168.1.157"; //your computer IP address
+    private PilotData mPilotData = new PilotData();
+
+    public static final String SERVERIP = "192.168.1.157"; // your computer IP address at home
+    //public static final String SERVERIP = "192.168.43.157"; // on the boat
     public static final int SERVERPORT = 37377;
     private OnMessageReceived mMessageListener = null;
     private boolean mRun = false;
+
+    //private PilotData mPilotData;
 
     PrintWriter out;
     BufferedReader in;
@@ -75,8 +83,23 @@ public class TCPClient {
                     serverMessage = in.readLine();
                     Log.e("TCP Client", "C: in.readLine finished.");
                     if (serverMessage != null && mMessageListener != null) {
+
+                        String[] p = serverMessage.split(" ");
+                        mPilotData.mode = p[0];
+                        mPilotData.yawCmd = p[1];
+                        mPilotData.yawIs = p[2];
+                        mPilotData.rudderPID = p[3];
+                        mPilotData.Kp = p[4];
+                        mPilotData.Kd = p[5];
+                        mPilotData.Ki = p[6];
+                        mPilotData.Km = p[7];
+                        mPilotData.mYaw = p[8];
+                        mPilotData.gpsCourse = p[9];
+                        mPilotData.accGyroCount = p[10];
+                        mPilotData.magCount = p[11];
+
                         //call the method messageReceived from MyActivity class
-                        mMessageListener.messageReceived(serverMessage);
+                        mMessageListener.messageReceived(mPilotData);
                         Log.e("TCP Client", "C: message received!");
                     }
                     serverMessage = null;
@@ -106,6 +129,43 @@ public class TCPClient {
     //Declare the interface. The method messageReceived(String message) will must be implemented in the MyActivity
     //class at on asynckTask doInBackground
     public interface OnMessageReceived {
-        public void messageReceived(String message);
+        public void messageReceived(PilotData mPilotData);
+    }
+
+
+    public void pilotCmd(String cmd) {
+        switch(cmd) {
+            case "stdby":
+                sendMessage("$SET 1,0.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bKpDec":
+                sendMessage("$SET 0,0.0,-0.1,0.0,0.0,0.0");
+                break;
+            case "bKpInc":
+                sendMessage("$SET 0,0.0,+0.1,0.0,0.0,0.0");
+                break;
+            case "bKdDec":
+                sendMessage("$SET 0,0.0,0.0,-0.1,0.0,0.0");
+                break;
+            case "bKdInc":
+                sendMessage("$SET 0,0.0,0.0,+0.1,0.0,0.0");
+                break;
+
+            case "bKiDec":
+                sendMessage("$SET 0,0.0,0.0,0.0,-0.01,0.0");
+                break;
+            case "bKiInc":
+                sendMessage("$SET 0,0.0,0.0,0.0,+0.01,0.0");
+                break;
+            case "bKmDec":
+                sendMessage("$SET 0,0.0,0.0,0.0,0.0,-0.1");
+                break;
+            case "bKmInc":
+                sendMessage("$SET 0,0.0,0.0,0.0,0.0,+0.1");
+                break;
+            default:
+                sendMessage("$SET 1,0.0,0.0,0.0,0.0,0.0");
+        }
+
     }
 }

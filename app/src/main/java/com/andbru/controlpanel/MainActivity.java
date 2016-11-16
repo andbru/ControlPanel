@@ -23,14 +23,14 @@ import android.os.AsyncTask;
 
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SettingsFragment.PassCmd{
 
     /**     Control Panel for Raspberry Pi 3 autopilot
      *
      * This app is based on the "Swipe View with Tabs" default app generation in Android Studio.
      * It uses ViewPager and FragmentPagerAdapter. The fragments are defined in separate files.
      * I have a TCPClient class in a separate file set up on a background thread with ActiveSync
-     * in this file. The TCPClient polls for new data regularly with Handler.postDelayed in
+     * in this file. The TCPClientcalls to poll for new data regularly with Handler.postDelayed in
      * runnable mStatusChecker.
      *
      */
@@ -44,11 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
     private TCPClient mTcpClient;
 
-    private int mInterval = 5000;
+    private int mInterval = 500;
     private Handler mHandler;
 
-    //we create a TCPClient object and
-    //mTcpClient = new TCPClient();
+    PilotData mPilotData = new PilotData();
+
+    public void relayCmd(String txt){
+        mTcpClient.pilotCmd(txt);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,11 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                mTcpClient.sendMessage("$GET ");
+                //mTcpClient.sendMessage("$GET ");
+                //mPilotData.mode = "17";
+                //mPilotFragment.update(mPilotData);
+                mTcpClient.pilotCmd("stdby");
+
             }
         });
 
@@ -105,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void passCmd(String cmd) {
+        mTcpClient.pilotCmd(cmd);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -118,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -163,7 +178,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class connectTask extends AsyncTask<String,String,TCPClient> {
+    public class connectTask extends AsyncTask<String,PilotData,TCPClient> {
+
+        PilotData mPD = new PilotData();
 
         @Override
         protected TCPClient doInBackground(String... message) {
@@ -172,9 +189,10 @@ public class MainActivity extends AppCompatActivity {
             mTcpClient = new TCPClient(new TCPClient.OnMessageReceived() {
                 @Override
                 //here the messageReceived method is implemented
-                public void messageReceived(String message) {
+                public void messageReceived(PilotData mPD) {
+
                     //this method calls the onProgressUpdate
-                    publishProgress(message);
+                    publishProgress(mPD);
                 }
             });
             mTcpClient.run();
@@ -183,9 +201,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(String... values) {
+        protected void onProgressUpdate(PilotData... values) {
             super.onProgressUpdate(values);
-                mPilotFragment.setTextLabel(values[0]);
+                mPilotFragment.update(values[0]);
+                mSettingsFragment.update(values[0]);
         }
     }
 
@@ -194,10 +213,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    //updateStatus(); //this function can change value of mInterval.
-                    int pnr = mViewPager.getCurrentItem();
 
-                    //mPilotFragment.setTextLabel("Fantastiskt");
                     if(mTcpClient != null) mTcpClient.sendMessage("$GET ");
 
                 } finally {

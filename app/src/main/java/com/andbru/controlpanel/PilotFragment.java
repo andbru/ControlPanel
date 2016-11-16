@@ -27,7 +27,8 @@ public class PilotFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mPilotView = inflater.inflate(R.layout.fragment_pilot, container, false);
         pilotLabel = (TextView) mPilotView.findViewById(R.id.pilot_label);
-        pilotLabel.setText("Pilot 2");
+        //pilotLabel.setText("Pilot 2");
+        pilotLabel.setText("xxx");
         return mPilotView;
     }
 
@@ -38,5 +39,9 @@ public class PilotFragment extends Fragment {
 
     public void setTextLabel(String mText) {
         if(pilotLabel != null)pilotLabel.setText(mText);
+    }
+
+    public void update(PilotData mPD) {
+        if(pilotLabel != null)pilotLabel.setText(mPD.yawIs);
     }
 }
