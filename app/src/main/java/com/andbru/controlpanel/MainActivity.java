@@ -74,23 +74,6 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
         mCompassFragment = new CompassFragment();
         mSettingsFragment = new SettingsFragment();
 
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                //mTcpClient.sendMessage("$GET ");
-                //mPilotData.mode = "17";
-                //mPilotFragment.update(mPilotData);
-                mTcpClient.pilotCmd("stdby");
-
-            }
-        });
-*/
-
         // connect to the server
         new connectTask().execute("");
 
@@ -206,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
             super.onProgressUpdate(values);
                 mPilotFragment.update(values[0]);
                 mSettingsFragment.update(values[0]);
+                mCompassFragment.update(values[0]);
         }
     }
 

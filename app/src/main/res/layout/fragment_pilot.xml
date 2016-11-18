@@ -33,7 +33,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:text="Rodermotor"
+            android:text="Rudder Actuator"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#FFFFFFFF" />
 
@@ -79,7 +79,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:text="Roder (grader)"
+            android:text="Rudder (deg)"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#FFFFFFFF" />
 
@@ -100,7 +100,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:text="Hastighet (knop)"
+            android:text="Speed (knots)"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#FFFFFFFF" />
 
@@ -121,7 +121,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:text="Spåravvikelse (m)"
+            android:text="Off Track (m)"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#FFFFFFFF" />
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="25"
-                android:text="-5"
+                android:text="-5 ⁰"
                 android:textColor="#ff000000" />
 
             <Button
@@ -186,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="25"
-                android:text="-1"
+                android:text="-1 ⁰"
                 android:textColor="#ff000000" />
 
             <Button
@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="25"
-                android:text="+1"
+                android:text="+1 ⁰"
                 android:textColor="#ff000000" />
 
             <Button
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:layout_weight="25"
-                android:text="+5"
+                android:text="+5 ⁰"
                 android:textColor="#ff000000" />
 
         </LinearLayout>
@@ -249,7 +249,7 @@
             android:layout_marginBottom="0dp"
             android:layout_marginTop="0dp"
             android:layout_weight="30"
-            android:text="Kör till waypoint"
+            android:text="Goto waypoint"
             android:textColor="#ff000000" />
 
         <Button
@@ -269,7 +269,7 @@
             android:layout_margin="4dp"
             android:layout_marginTop="5dp"
             android:layout_weight="30"
-            android:text="Håll kurs"
+            android:text="Heading Hold"
             android:textColor="#ff000000" />
 
         <Button

@@ -6,13 +6,23 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.andbru.controlpanel.MainActivity$PlaceholderFragment">
+    tools:context="com.andbru.controlpanel.CompassFragment">
 
+    <RelativeLayout
+        android:id="@+id/csurface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttons"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="2dp" >
+
+    </RelativeLayout>
+<!--
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Compass"
         android:textSize="30sp" />
-
+-->
 </RelativeLayout>
