@@ -13,7 +13,7 @@ public class PilotData {
     public String Kd;
     public String Ki;
     public String Km;
-    public String mYaw;
+    public String gpsSpeed;
     public String gpsCourse;
     public String accGyroCount;
     public String magCount;

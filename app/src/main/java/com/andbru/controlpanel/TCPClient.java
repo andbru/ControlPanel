@@ -93,7 +93,7 @@ public class TCPClient {
                         mPilotData.Kd = p[5];
                         mPilotData.Ki = p[6];
                         mPilotData.Km = p[7];
-                        mPilotData.mYaw = p[8];
+                        mPilotData.gpsSpeed = p[8];
                         mPilotData.gpsCourse = p[9];
                         mPilotData.accGyroCount = p[10];
                         mPilotData.magCount = p[11];
@@ -135,8 +135,23 @@ public class TCPClient {
 
     public void pilotCmd(String cmd) {
         switch(cmd) {
-            case "stdby":
+            case "bStdby":
                 sendMessage("$SET 1,0.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bHH":
+                sendMessage("$SET 2,0.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bMinus5":
+                sendMessage("$SET 0,-5.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bMinus1":
+                sendMessage("$SET 0,-1.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bPlus1":
+                sendMessage("$SET 0,+1.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bPlus5":
+                sendMessage("$SET 0,+5.0,0.0,0.0,0.0,0.0");
                 break;
             case "bKpDec":
                 sendMessage("$SET 0,0.0,-0.1,0.0,0.0,0.0");
@@ -150,7 +165,6 @@ public class TCPClient {
             case "bKdInc":
                 sendMessage("$SET 0,0.0,0.0,+0.1,0.0,0.0");
                 break;
-
             case "bKiDec":
                 sendMessage("$SET 0,0.0,0.0,0.0,-0.01,0.0");
                 break;

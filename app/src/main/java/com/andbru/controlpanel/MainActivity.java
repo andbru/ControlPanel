@@ -1,7 +1,6 @@
 package com.andbru.controlpanel;
 
 import android.os.Handler;
-//import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,7 +22,7 @@ import android.os.AsyncTask;
 
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements SettingsFragment.PassCmd{
+public class MainActivity extends AppCompatActivity implements SettingsFragment.PassCmd, PilotFragment.PassCmd{
 
     /**     Control Panel for Raspberry Pi 3 autopilot
      *
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
         mCompassFragment = new CompassFragment();
         mSettingsFragment = new SettingsFragment();
 
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
 
             }
         });
+*/
 
         // connect to the server
         new connectTask().execute("");
