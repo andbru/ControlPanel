@@ -33,7 +33,6 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -65,9 +64,6 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
         Button bPlus5 = (Button)mPilotView.findViewById(R.id.bPlus5);
         bPlus5.setOnClickListener(this);
 
-        pilotLabel = (TextView) mPilotView.findViewById(R.id.t1);
-        //pilotLabel.setText("Pilot 2");
-        pilotLabel.setText("xxx");
         return mPilotView;
     }
 
@@ -95,8 +91,10 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
         mCompass.invalidate();
 
         // Update measured values and status indications
-        if(rudder != null) rudder.setText(mPD.rudderPID);
-        if(speed != null) speed.setText(mPD.gpsSpeed);
+        double dRudder = new Double(mPD.rudderIs);
+        double dSpeed = new Double(mPD.gpsSpeed);
+        if(rudder != null) rudder.setText(String.format( "%.1f", dRudder ));
+        if(speed != null) speed.setText(String.format( "%.1f", dSpeed ));
 
         int s = 0x00000000;
         int h = 0x00000000;
@@ -131,8 +129,6 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
         } catch ( NullPointerException e) {
             // Ignore, the fragment has been replaced by another before call has been invoked.
         }
-
-        if(pilotLabel != null)pilotLabel.setText(mPD.yawCmd);
     }
 
     @Override

@@ -88,7 +88,7 @@ public class TCPClient {
                         mPilotData.mode = p[0];
                         mPilotData.yawCmd = p[1];
                         mPilotData.yawIs = p[2];
-                        mPilotData.rudderPID = p[3];
+                        mPilotData.rudderIs = p[3];
                         mPilotData.Kp = p[4];
                         mPilotData.Kd = p[5];
                         mPilotData.Ki = p[6];

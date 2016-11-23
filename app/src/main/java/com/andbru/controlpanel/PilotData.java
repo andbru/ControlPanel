@@ -8,7 +8,7 @@ public class PilotData {
     public String mode;
     public String yawCmd;
     public String yawIs;
-    public String rudderPID;
+    public String rudderIs;
     public String Kp;
     public String Kd;
     public String Ki;

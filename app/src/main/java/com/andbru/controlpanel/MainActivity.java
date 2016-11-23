@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
     private ViewPager mViewPager;
 
     private PilotFragment mPilotFragment;
-    static public TextView pilotLabel;
+    //static public TextView pilotLabel;
     private CompassFragment mCompassFragment;
+    private PlotRegFragment mPlotRegFragment;
     private SettingsFragment mSettingsFragment;
 
     private TCPClient mTcpClient;
 
-    private int mInterval = 500;
+    private int mInterval = 200;
     private Handler mHandler;
 
     PilotData mPilotData = new PilotData();
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
 
         mPilotFragment = new PilotFragment();
         mCompassFragment = new CompassFragment();
+        mPlotRegFragment = new PlotRegFragment();
         mSettingsFragment = new SettingsFragment();
 
         // connect to the server
@@ -133,6 +135,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
                 case 1:
                     return mCompassFragment;
                 case 2:
+                    return mPlotRegFragment;
+                case 3:
                     return mSettingsFragment;
                 default:
                     return mPilotFragment;
@@ -142,8 +146,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
 
         @Override
@@ -154,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
                 case 1:
                     return "Compass";
                 case 2:
+                    return "Regulator Plot";
+                case 3:
                     return "Settings";
                 default:
                     return null;
@@ -189,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
             super.onProgressUpdate(values);
                 mPilotFragment.update(values[0]);
                 mSettingsFragment.update(values[0]);
+                mPlotRegFragment.update(values[0]);
                 mCompassFragment.update(values[0]);
         }
     }
