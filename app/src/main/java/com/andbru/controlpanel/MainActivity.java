@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
     private ViewPager mViewPager;
 
     private PilotFragment mPilotFragment;
-    //static public TextView pilotLabel;
     private CompassFragment mCompassFragment;
+    private PlotCourseFragment mPlotCourseFragment;
     private PlotRegFragment mPlotRegFragment;
     private SettingsFragment mSettingsFragment;
 
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
 
     private int mInterval = 200;
     private Handler mHandler;
+
+    connectTask cT;
 
     PilotData mPilotData = new PilotData();
 
@@ -73,15 +75,31 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
 
         mPilotFragment = new PilotFragment();
         mCompassFragment = new CompassFragment();
+        mPlotCourseFragment = new PlotCourseFragment();
         mPlotRegFragment = new PlotRegFragment();
         mSettingsFragment = new SettingsFragment();
 
-        // connect to the server
-        new connectTask().execute("");
-
         mHandler = new Handler();
-        startRepeatingTask();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // connect to the server
+        cT = (connectTask) new connectTask().execute();
+        startRepeatingTask();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //Kill TcpClient
+        mTcpClient.stopClient();
+        cT.cancel(true);
+
+        stopRepeatingTask();
     }
 
     @Override
@@ -135,8 +153,10 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
                 case 1:
                     return mCompassFragment;
                 case 2:
-                    return mPlotRegFragment;
+                    return mPlotCourseFragment;
                 case 3:
+                    return mPlotRegFragment;
+                case 4:
                     return mSettingsFragment;
                 default:
                     return mPilotFragment;
@@ -146,8 +166,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
-            return 4;
+            // Show 5 total pages.
+            return 5;
         }
 
         @Override
@@ -158,8 +178,10 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
                 case 1:
                     return "Compass";
                 case 2:
-                    return "Regulator Plot";
+                    return "Course Plot";
                 case 3:
+                    return "Gyro Plot";
+                case 4:
                     return "Settings";
                 default:
                     return null;
@@ -193,10 +215,24 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
         @Override
         protected void onProgressUpdate(PilotData... values) {
             super.onProgressUpdate(values);
-                mPilotFragment.update(values[0]);
-                mSettingsFragment.update(values[0]);
-                mPlotRegFragment.update(values[0]);
-                mCompassFragment.update(values[0]);
+
+            // Don't update invisible fragments. Restart plot when it becomes visible.
+
+            if(mViewPager.getCurrentItem() == 0) mPilotFragment.update(values[0]);
+
+            if(mViewPager.getCurrentItem() == 1) mCompassFragment.update(values[0]);
+
+            if(mViewPager.getCurrentItem() == 2) mPlotCourseFragment.update(values[0]);
+                else {
+                if(mPlotCourseFragment.mPlot != null) mPlotCourseFragment.mPlot.count = 0;
+            }
+
+            if(mViewPager.getCurrentItem() == 3) mPlotRegFragment.update(values[0]);
+                else {
+                if(mPlotRegFragment.mPlot != null) mPlotRegFragment.mPlot.count = 0;
+            }
+
+            if(mViewPager.getCurrentItem() == 4) mSettingsFragment.update(values[0]);
         }
     }
 

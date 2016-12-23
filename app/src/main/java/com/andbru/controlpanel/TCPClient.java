@@ -18,7 +18,8 @@ public class TCPClient {
     private String serverMessage;
     private PilotData mPilotData = new PilotData();
 
-    public static final String SERVERIP = "192.168.1.157"; // your computer IP address at home
+    //public static final String SERVERIP = "192.168.1.157"; // your computer IP address at home
+    public static final String SERVERIP = "155.4.110.188"; // your computer IP address at home
     //public static final String SERVERIP = "192.168.43.157"; // on the boat
     public static final int SERVERPORT = 37377;
     private OnMessageReceived mMessageListener = null;
@@ -95,7 +96,7 @@ public class TCPClient {
                         mPilotData.Km = p[7];
                         mPilotData.gpsSpeed = p[8];
                         mPilotData.gpsCourse = p[9];
-                        mPilotData.accGyroCount = p[10];
+                        mPilotData.w = p[10];
                         mPilotData.magCount = p[11];
 
                         //call the method messageReceived from MyActivity class

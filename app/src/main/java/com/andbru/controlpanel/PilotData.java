@@ -15,6 +15,6 @@ public class PilotData {
     public String Km;
     public String gpsSpeed;
     public String gpsCourse;
-    public String accGyroCount;
+    public String w;
     public String magCount;
 }
