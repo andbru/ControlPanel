@@ -28,6 +28,7 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
 
     TextView rudder;
     TextView speed;
+    TextView gps;
     Button biStdby;
     Button biHeadingHold;
     Button biGotoWpt;
@@ -57,6 +58,7 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
 
         rudder = (TextView) mPilotView.findViewById(R.id.textRudder);
         speed = (TextView) mPilotView.findViewById(R.id.textSpeed);
+        gps = (TextView) mPilotView.findViewById(R.id.textGps);
         biStdby = (Button) mPilotView.findViewById(R.id.biStdby);
         biHeadingHold = (Button) mPilotView.findViewById(R.id.biHeadingHold);
         biGotoWpt = (Button) mPilotView.findViewById(R.id.biGotoWpt);
@@ -103,8 +105,24 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
         // Update measured values and status indications
         double dRudder = new Double(mPD.rudderIs);
         double dSpeed = new Double(mPD.gpsSpeed);
-        if(rudder != null) rudder.setText(String.format( "%.1f", dRudder ));
-        if(speed != null) speed.setText(String.format( "%.1f", dSpeed ));
+        double dGps = new Double(mPD.gpsCourse);
+        if(rudder != null) {
+            if (dRudder < 0) rudder .setText("< " + String.format("%.0f",Math.abs(dRudder)) + "  ");
+            if (dRudder == 0) rudder .setText("  " + String.format("%.0f",Math.abs(dRudder)) + "  ");
+            if (dRudder > 0) rudder .setText("  " + String.format("%.0f",Math.abs(dRudder)) + " >");
+            //rudder.setText(String.format( "%.1f", dRudder ));
+        }
+        if((speed != null) & (gps != null)) {
+            if (dSpeed < 1.5) {
+                speed.setText("-.-");
+                gps.setText("---");
+            }
+            else {
+                speed.setText(String.format("%.1f", dSpeed));
+                gps.setText(String.format( "%.0f", dGps ));
+            }
+        }
+
 
         int s = 0x00000000;
         int h = 0x00000000;

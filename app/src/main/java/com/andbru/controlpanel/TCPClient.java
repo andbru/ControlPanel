@@ -80,9 +80,9 @@ public class TCPClient {
 
                 //in this while the client listens for the messages sent by the server
                 while (mRun) {
-                    Log.e("TCP Client", "C: in.readLine called.");
+                    //Log.e("TCP Client", "C: in.readLine called.");
                     serverMessage = in.readLine();
-                    Log.e("TCP Client", "C: in.readLine finished.");
+                    //Log.e("TCP Client", "C: in.readLine finished.");
                     if (serverMessage != null && mMessageListener != null) {
 
                         String[] p = serverMessage.split(" ");
@@ -101,7 +101,7 @@ public class TCPClient {
 
                         //call the method messageReceived from MyActivity class
                         mMessageListener.messageReceived(mPilotData);
-                        Log.e("TCP Client", "C: message received!");
+                        //Log.e("TCP Client", "C: message received!");
                     }
                     serverMessage = null;
 

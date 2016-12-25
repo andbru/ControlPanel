@@ -26,49 +26,10 @@
             android:text="Status"
             android:textColor="#FFFFFFFF" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:text="Rudder Actuator"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#FFFFFFFF" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
-
-            <Button
-                android:id="@+id/BMotorMFull"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/BMotorMHalv"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/BMotorPHalv"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/BMotorPFull"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="17dp"
-                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -91,7 +52,8 @@
             android:layout_weight="1"
             android:text="&lt; 12  "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFFFFFFF" />
+            android:textColor="#FFFFFFFF"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -112,7 +74,8 @@
             android:layout_weight="1"
             android:text="4.3"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFFFFFFF" />
+            android:textColor="#FFFFFFFF"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView7"
@@ -121,19 +84,20 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="bottom"
-            android:text="Off Track (m)"
+            android:text="GPS Course"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#FFFFFFFF" />
 
         <TextView
-            android:id="@+id/textXTrackErr"
+            android:id="@+id/textGps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:text="---"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFFFFFFF" />
+            android:textColor="#FFFFFFFF"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView9"

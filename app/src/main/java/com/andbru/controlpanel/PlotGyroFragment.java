@@ -18,11 +18,11 @@ import android.widget.RelativeLayout;
  * Created by Anders on 2016-11-22.
  */
 
-public class PlotRegFragment extends Fragment {
+public class PlotGyroFragment extends Fragment {
 
-    RegPlot mPlot;
+    GyroPlot mPlot;
 
-    public PlotRegFragment() {
+    public PlotGyroFragment() {
 
     }
 
@@ -36,7 +36,7 @@ public class PlotRegFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View mPlotRegView = inflater.inflate(R.layout.fragment_plotreg, container, false);
 
-        mPlot = new RegPlot(container.getContext());
+        mPlot = new GyroPlot(container.getContext());
         mPlot.setBackgroundColor(0xff000000);
 
         RelativeLayout insertPlot = (RelativeLayout)  mPlotRegView.findViewById(R.id.psurface);
@@ -67,7 +67,7 @@ public class PlotRegFragment extends Fragment {
         }
     }
 
-    public class RegPlot extends SurfaceView implements SurfaceHolder.Callback {
+    public class GyroPlot extends SurfaceView implements SurfaceHolder.Callback {
 
         Paint ptText = new Paint();
         Paint ptGrid = new Paint();
@@ -81,7 +81,7 @@ public class PlotRegFragment extends Fragment {
         float[] plotData = new float[200];
         int count = 0;
 
-        public RegPlot(Context ctext) {
+        public GyroPlot(Context ctext) {
             super(ctext);
 
             getHolder().addCallback(this);
@@ -121,8 +121,8 @@ public class PlotRegFragment extends Fragment {
 
             canvas.drawColor(Color.BLACK);
 
-            RegPlot.Point p1 = new RegPlot.Point();
-            RegPlot.Point p2 = new RegPlot.Point();
+            GyroPlot.Point p1 = new GyroPlot.Point();
+            GyroPlot.Point p2 = new GyroPlot.Point();
 
             // Draw horizontal grid lines and legends
             ptText.setTextSize(30);
@@ -158,7 +158,7 @@ public class PlotRegFragment extends Fragment {
             }
 
             if (count == 0) {                           // First time, fake first reading
-                RegPlot.Point p = getPoint(0, w);
+                GyroPlot.Point p = getPoint(0, w);
                 plotData[count] = p.x;
                 plotData[count+1] = p.y;
             } else {
@@ -167,7 +167,7 @@ public class PlotRegFragment extends Fragment {
             }
 
             float x = (float)count/20;                  // Add new reading
-            RegPlot.Point p = getPoint(x, w);
+            GyroPlot.Point p = getPoint(x, w);
             plotData[count+2] =p.x;
             plotData[count+3] = p.y;
 
@@ -196,11 +196,11 @@ public class PlotRegFragment extends Fragment {
             float y = 0;
         }
 
-        public RegPlot.Point getPoint (float x, float y) {
+        public GyroPlot.Point getPoint (float x, float y) {
             float margin = 2;       // percent
             float xOffset = 10;     //
             float yOffset = 10;     //
-            RegPlot.Point pt = new RegPlot.Point();
+            GyroPlot.Point pt = new GyroPlot.Point();
 
             pt.x = width*((100-2*margin-xOffset)/(xMax-xMin)*(x-xMin)+margin+xOffset)/100;
             pt.y = height*((100-2*margin-yOffset)/(yMax-yMin)*(yMax-y)+margin)/100;
