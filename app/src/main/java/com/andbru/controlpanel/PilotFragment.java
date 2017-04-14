@@ -31,7 +31,7 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
     TextView gps;
     Button biStdby;
     Button biHeadingHold;
-    Button biGotoWpt;
+    Button biRudCtrl;
 
     PassCmd cmdPasser;
 
@@ -61,12 +61,14 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
         gps = (TextView) mPilotView.findViewById(R.id.textGps);
         biStdby = (Button) mPilotView.findViewById(R.id.biStdby);
         biHeadingHold = (Button) mPilotView.findViewById(R.id.biHeadingHold);
-        biGotoWpt = (Button) mPilotView.findViewById(R.id.biGotoWpt);
+        biRudCtrl = (Button) mPilotView.findViewById(R.id.biRudCtrl);
 
         Button bHH = (Button)mPilotView.findViewById(R.id.bHeadingHold);
         bHH.setOnClickListener(this);
         Button bStdby = (Button)mPilotView.findViewById(R.id.bStdby);
         bStdby.setOnClickListener(this);
+        Button bRudCtrl = (Button)mPilotView.findViewById(R.id.bRudCtrl);
+        bRudCtrl.setOnClickListener(this);
         Button bMinus5 = (Button)mPilotView.findViewById(R.id.bMinus5);
         bMinus5.setOnClickListener(this);
         Button bMinus1 = (Button)mPilotView.findViewById(R.id.bMinus1);
@@ -132,28 +134,28 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
             case "1":
                 s = 0xFF00FF00;
                 h = 0xFFFFFF00;
-                w = 0xFFFF0000;
+                w = 0xFFFFFF00;
                 break;
             case "2":
                 s = 0xFFFFFF00;
                 h = 0xFF00FF00;
-                w = 0xFFFF0000;
+                w = 0xFFFFFF00;
                 break;
-            case "3":
-                s = 0xFFFF0000;
-                h = 0xFFFF0000;
-                w = 0xFFFF0000;
+            case "7":
+                s = 0xFFFFFF00;
+                h = 0xFFFFFF00;
+                w = 0xFF00FF00;
                 break;
             default:
                 s = 0xFFFFFF00;
                 h = 0xFFFFFF00;
-                w = 0xFF00FF00;
+                w = 0xFFFFFF00;
         }
 
         try {
             biStdby.setBackgroundColor(s);
             biHeadingHold.setBackgroundColor(h);
-            biGotoWpt.setBackgroundColor(w);
+            biRudCtrl.setBackgroundColor(w);
         } catch ( NullPointerException e) {
             // Ignore, the fragment has been replaced by another before call has been invoked.
         }
@@ -167,6 +169,9 @@ public class PilotFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.bStdby:
                 cmdPasser.passCmd("bStdby");
+                break;
+            case R.id.bRudCtrl:
+                cmdPasser.passCmd("bRudCtrl");
                 break;
             case R.id.bMinus5:
                 cmdPasser.passCmd("bMinus5");

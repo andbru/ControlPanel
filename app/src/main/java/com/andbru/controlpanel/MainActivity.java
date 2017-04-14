@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
      * This app is based on the "Swipe View with Tabs" default app generation in Android Studio.
      * It uses ViewPager and FragmentPagerAdapter. The fragments are defined in separate files.
      * I have a TCPClient class in a separate file set up on a background thread with ActiveSync
-     * in this file. The TCPClientcalls to poll for new data regularly with Handler.postDelayed in
+     * in this file. The TCPClient calls to poll for new data regularly with Handler.postDelayed in
      * runnable mStatusChecker.
      *
      */

@@ -19,8 +19,8 @@ public class TCPClient {
     private PilotData mPilotData = new PilotData();
 
     //public static final String SERVERIP = "192.168.1.157"; // your computer IP address at home
-    public static final String SERVERIP = "155.4.110.188"; // your computer IP address at home
-    //public static final String SERVERIP = "192.168.43.157"; // on the boat
+    //public static final String SERVERIP = "5.150.225.247"; // your computer IP address at home
+    public static final String SERVERIP = "192.168.43.157"; // on the boat
     public static final int SERVERPORT = 37377;
     private OnMessageReceived mMessageListener = null;
     private boolean mRun = false;
@@ -127,7 +127,7 @@ public class TCPClient {
 
     }
 
-    //Declare the interface. The method messageReceived(String message) will must be implemented in the MyActivity
+    //Declare the interface. The method messageReceived(String message) must be implemented in the MyActivity
     //class at on asynckTask doInBackground
     public interface OnMessageReceived {
         public void messageReceived(PilotData mPilotData);
@@ -141,6 +141,9 @@ public class TCPClient {
                 break;
             case "bHH":
                 sendMessage("$SET 2,0.0,0.0,0.0,0.0,0.0");
+                break;
+            case "bRudCtrl":
+                sendMessage("$SET 7,0.0,0.0,0.0,0.0,0.0");
                 break;
             case "bMinus5":
                 sendMessage("$SET 0,-5.0,0.0,0.0,0.0,0.0");
